@@ -38,7 +38,7 @@ void MainWindow::on_pushButton_15_clicked()
     QString HEURE = ui->lineEdit_5->text();
     QRegularExpression regex("^[A-Za-z]+$");
     QRegularExpression reg("^([0-9]{2}):([0-9]{2})$");
-    if(ID=="" || NOM=="" || VILLE=="")
+    if(ID=="" || NOM=="" || VILLE=="" || HEURE=="")
     {
          QMessageBox::critical(this, "erreur", "les champs sont vides");
     }
@@ -50,12 +50,14 @@ void MainWindow::on_pushButton_15_clicked()
                 QMessageBox::critical(this, "erreur", "l'e nom doit etre uniquement 'id ne doit pas passez le nombre 9999999 ");
             }
             else{
-
+                if (reg.match(HEURE).hasMatch())
                 {
                     animation a(ID,NOM,VILLE,date,HEURE);
                     a.ajouter();
                     ui->tableView->setModel(a.afficher());}
-
+                else{
+                     QMessageBox::warning(nullptr, "Invalid Input", "Please enter the time in the format xx:xx.");
+                }
                 }
 
 
